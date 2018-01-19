@@ -1,0 +1,19 @@
+{
+  "name": "CV",
+  "author": "kaustavha",
+  "license": "Feel free to use this as a boilerplate if you like",
+  "devDependencies": {
+    "browser-sync": "latest",
+    "gulp": "latest",
+    "gulp-clean": "^0.3.1",
+    "gulp-coffee": "latest",
+    "gulp-jade": "latest",
+    "gulp-stylus": "latest",
+    "gulp-util": "latest"
+  },
+  "scripts": {
+    "build": "gulp",
+    "clean": "gulp clean",
+    "git": "git add . && git commit -am 'Autoupdate' && git push && cd .. && npm run update"
+  }
+}

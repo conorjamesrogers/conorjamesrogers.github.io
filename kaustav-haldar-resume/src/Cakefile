@@ -1,0 +1,33 @@
+## Deprecated Cakefile, no longer used for compilation
+
+{spawn} = require 'child_process'
+chokidar = require 'chokidar'
+fs = require 'fs'
+
+cmds = (optsToAddToJadeDefaultOpts=[], optsToAddToStylusDefaultOpts=[]) ->
+    jopts = ['cv.jade', '-o', '../']
+    optsToAddToJadeDefaultOpts.forEach (opt) -> if opt.length isnt 0 then jopts.push opt
+    sopts = ['./styles/styles.styl', '-o', '../lib']
+    optsToAddToStylusDefaultOpts.forEach (opt) -> if opt.length isnt 0 then sopts.push opt
+    spawn 'jade', jopts
+    spawn 'stylus', sopts
+    return
+
+task 'prod', 'Compile for production!', ->
+    console.log 'Compiling for production with un-prettyfied jade and compressed stylus outputs'
+    cmds [], ['-c']
+
+task 'dev', 'Compile for development!', ->
+    console.log 'Compiling for dev with watcher and prettified jade->html and uncompressed stylesheets'
+    # init chokidar with 500ms interval instead of 100 to prevent cpu hogging
+    watcher = chokidar.watch('cv.jade', {interval: 500})
+    cmds ['-p']
+    watcher
+        .add './styles'
+        .add './includes'
+        .on 'change', (path) ->
+            console.log path
+            cmds ['-p']
+        .on 'add', (path) ->
+            console.log path
+            cmds ['-p']

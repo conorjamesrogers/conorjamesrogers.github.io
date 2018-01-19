@@ -1,0 +1,46 @@
+mixin section(category)
+  .sectionContainer
+    span
+      .category
+        span= category
+        hr.blue
+      .section
+        if block
+          block
+        else
+          p err
+  hr.grey
+
+mixin sectionMid(category)
+  .sectionContainer
+    .categoryCenter
+      span= category
+      hr.blue
+    if block
+      block
+    else
+      p err
+  hr.grey
+
+
+mixin sectionMidMin(category)
+  .sectionContainer
+    .categoryCenter
+      span= category
+      hr.blue
+    if block
+      block
+    else
+      p err
+
+
+mixin techList(...items)
+  ul(class='tech')
+    each item in items
+      li= item
+      hr.grey
+
+mixin link(url)
+  a(href= url target='_blank')
+    if block
+      block

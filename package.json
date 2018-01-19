@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "browser-sync": "latest",
-    "gulp": "latest",
+    "gulp": "^3.9.1",
     "gulp-clean": "^0.3.1",
     "gulp-coffee": "latest",
     "gulp-jade": "latest",
