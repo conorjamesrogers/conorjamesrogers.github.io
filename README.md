@@ -1,4 +1,4 @@
-# ConorJamesRogers.github.com
+# conorjamesrogers.github.com
 
 Personal site. 
 
