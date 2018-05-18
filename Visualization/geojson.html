@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: Loading GeoJSON data</title>
+		<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+		<style type="text/css">
+/*
+			body{
+                background-color: ;
+                }	
+*/
+		</style>
+	</head>
+	<body>
+            <h1 style = "text-align:center; color:gray"><bold>Åland Islands</bold></h1>
+		<script type="text/javascript">
+
+			//Width and height
+			var w = 1100;
+			var h = 550;
+            
+            var color = d3.scaleThreshold()
+            .domain([0, 1, 5, 20, 60, 150, 300, 600])
+            .range(d3.schemeOrRd[9]);
+            
+			//Define map projection
+            var projection = d3.geoEquirectangular()
+            .center([19, 60])
+//            .rotate([60.09, 19.93])
+            .scale(30000)
+            .translate([-150, 400]);
+                                
+
+			//Define path generator
+			var path = d3.geoPath()
+							 .projection(projection);
+
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+            var provinces;
+            d3.csv("population.csv",function(error, data){
+//                console.log(data);
+                provinces = data.map(function (d){
+                    return {
+                            province: d.province,
+                            pop: +d.pop,
+                            area:+d.area
+                        };
+                });
+          
+            console.log(provinces);
+			//Load in GeoJSON data
+			d3.json("ALA.json", function(json) {
+				console.log(json.features);
+				//Bind data and create one path per GeoJSON feature
+				svg.selectAll("path")
+				   .data(json.features)
+				   .enter()
+				   .append("path")
+				   .attr("d", path)
+                   .style("fill", function(d) {
+//                    console.log();
+                    var x = findObjectByKey(provinces,"province", d.properties.NAME_1);
+                return color(x.pop/x.area);
+                     })
+                    .on('mouseover', mouseover)
+                    .on('mouseout', mouseout);
+		
+			});
+            
+            function mouseover(d){
+              // Highlight hovered province
+//              d3.select(this).style('fill', 'orange');
+                console.log(d.properties.NAME_1);
+
+            }
+            function findObjectByKey(array, key, value) {
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i][key] === value) {
+                        return array[i];
+                    }
+                }
+                return null;
+            }
+            function mouseout(d){
+              // Reset province color
+//              d3.select(this).style('fill', "grey");
+
+           
+            }
+  });
+
+var x = d3.scaleSqrt()
+    .domain([0, 600])
+    .rangeRound([440, 950]);
+
+var g = svg.append("g")
+    .attr("class", "key")
+    .attr("transform", "translate(0,40)");
+
+g.selectAll("rect")
+  .data(color.range().map(function(d) {
+      d = color.invertExtent(d);
+      if (d[0] == null) d[0] = x.domain()[0];
+      if (d[1] == null) d[1] = x.domain()[1];
+      return d;
+    }))
+  .enter().append("rect")
+    .attr("height", 8)
+    .attr("x", function(d) { return x(d[0]); })
+    .attr("width", function(d) { return x(d[1]) - x(d[0]); })
+    .attr("fill", function(d) { return color(d[0]); });
+
+g.append("text")
+    .attr("class", "caption")
+    .attr("x", x.range()[0])
+    .attr("y", -6)
+    .attr("fill", "#000")
+    .attr("text-anchor", "start")
+    .attr("font-weight", "bold")
+    .text("Population per square mile");
+            
+g.call(d3.axisBottom(x)
+    .tickSize(13)
+    .tickValues(color.domain()))
+  .select(".domain")
+    .remove();
+            
+		</script>
+	</body>
+</html>
