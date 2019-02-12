@@ -3,7 +3,7 @@ const css = require('./app.scss');
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ScrollMagic from 'scrollmagic';
-import 'animation.gsap';
+// import 'animation.gsap';
 
 
 ReactDOM.render(

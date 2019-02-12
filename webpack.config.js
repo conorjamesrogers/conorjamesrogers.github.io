@@ -8,7 +8,7 @@ var Path = require('path')
 module.exports = {
     resolve: {
         alias: {
-            "animation.gsap": path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'),
+            "animation.gsap": Path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'),
         }
     },
     entry: './src/app.js',
