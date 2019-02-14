@@ -2,8 +2,11 @@ const css = require('./app.scss');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ScrollMagic from 'scrollmagic';
-// import 'animation.gsap';
+const ScrollMagic = require('ScrollMagic');
+require('animation.gsap');
+require('debug.addIndicators');
+const TimelineMax = require('TimelineMax');
+
 
 
 ReactDOM.render(
@@ -11,48 +14,103 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-// init controller
-var controller = new ScrollMagic.Controller();
 
-window.onscroll = function() {myFunction()};
+$(function(){
+    // init controller
+    var controller = new ScrollMagic.Controller({
+        globalSceneOptions: {
+            triggerHook: 'onLeave'
+        }
+    });
+    var navController = new ScrollMagic.Controller;
 
-var header = $('.header--links');
-var sticky = header.offset().top;
+    // var slides = document.querySelectorAll(".panel");
 
-function myFunction() {
-    if (window.pageYOffset > sticky) {
-        header.addClass("sticky",500);
-        header.removeClass("header--wrapper",500);
+    // create scene for every slide
+    // for (var i = 0; i < slides.length; i++) {
+    //     if(slides[i]==='.panel.content'){
+    //
+    //     }
+    //     new ScrollMagic.Scene({
+    //         triggerElement: slides[i],
+    //
+    //     })
+    //         .setPin(slides[i])
+    //         // .addIndicators() // add indicators (requires plugin)
+    //         .addTo(controller);
+    // }
+        var wipeAnimation = new TimelineMax()
+            .fromTo("section.panel.intro", 1, {
+                y: "0"
+            }, {
+                y: "-100%",
+                ease: Linear.easeNone
+            }) // in from left
+            .fromTo("section.panel.content", 1, {
+                y: "0"
+            }, {
+                y: "-100%",
+                ease: Linear.easeNone
+            })
+            .to("section.panel .additional_content", 1, {y: "-100%", ease: Linear.easeNone});// in from left
 
-    } else {
-        header.removeClass("sticky",500);
-        header.addClass("header--wrapper",500);
+        // create scene to pin and link animation
+        new ScrollMagic.Scene({
+            triggerElement: "#pinContainer",
+            triggerHook: "onLeave",
+            duration: "600%"
+        })
+            .setPin("#pinContainer")
+            .setTween(wipeAnimation)
+            // .addIndicators() // add indicators (requires plugin)
+            .addTo(controller);
 
+        var banner = $('#nav-container');
+        new ScrollMagic.Scene({
+            triggerElement: 'header',
+            triggerHook: 'onLeave',
+            duration:0,
+            offset: -150
+        })
+            .setPin('#nav-container')
+            .setClassToggle(banner[0], 'fixed')
+            .setTween(banner[0], 0.3, {top: 0, ease: Power2.EaseIn})
+            // .addIndicators()
+            .addTo(controller);
+
+
+    // change svg to inline...
+    activate('img[src*=".svg"]');
+
+    function activate(string){
+        jQuery(string).each(function(){
+            var $img = jQuery(this);
+            var imgID = $img.attr('id');
+            var imgClass = $img.attr('class');
+            var imgURL = $img.attr('src');
+
+            jQuery.get(imgURL, function(data) {
+                // Get the SVG tag, ignore the rest
+                var $svg = jQuery(data).find('svg');
+
+                // Add replaced image's ID to the new SVG
+                if(typeof imgID !== 'undefined') {
+                    $svg = $svg.attr('id', imgID);
+                }
+                // Add replaced image's classes to the new SVG
+                if(typeof imgClass !== 'undefined') {
+                    $svg = $svg.attr('class', imgClass+' replaced-svg');
+                }
+
+                // Remove any invalid XML tags as per http://validator.w3.org
+                $svg = $svg.removeAttr('xmlns:a');
+
+                // Replace image with new SVG
+                $img.replaceWith($svg);
+
+            }, 'xml');
+        });
     }
-}
 
-
-// create a scene
-new ScrollMagic.Scene({
-    // duration: 100   // the scene should last for a scroll distance of 100px
-    offset: 15    // start this scene after scrolling for 50px
-})
-    .setPin(".header--wrapper") // pins the element for the the scene's duration
-    .addTo(controller); // assign the scene to the controller
-
-
-
-//ANIMATIONS
-// Create Animation for 0.5s
-var tween = TweenMax.to('#animation', 0.5, {
-    backgroundColor: 'rgb(255, 39, 46)',
-    scale: 7,
-    rotation: 360
 });
 
-new ScrollMagic.Scene({
-    triggerElement: '#canvas',
-    offset: 150 /* offset the trigger 150px below #scene's top */
-})
-    .setTween(tween)
-    .addTo(controller);

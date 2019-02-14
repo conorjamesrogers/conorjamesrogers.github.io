@@ -6,7 +6,8 @@
 </head>
 <body>
     <header>
-        <div class=" header--wrapper header--links grace_animation" id="head">
+    <div id="nav-container">
+        <div class=" header--wrapper header--links grace_animation sticky" id="head">
             <!--<hr class="grey">-->
                 <ul>
                     <li><a href="./resume/Conor_Rogers_Resume_t_nb.pdf"><img src="img/file-text.svg"><sub>Resume</sub></a></li>
@@ -19,41 +20,55 @@
                 </ul>
             <!--<hr class="grey">-->
         </div>
-    </header>
-    <!--<div class="hero">-->
-        <!---->
-    <!--</div>-->
-    <!--<h1>Top</h1>-->
-    <!--<center>C</center>-->
-    <div  id="canvas" class="hero">
-
-        <h1> Conor J. Rogers <br> </h1>
-        <h5 class="promo-block-long"><br>fullstack <br> web <br> development</h5>
-
-
     </div>
-    <section id="content"><img id="avatar" src="img/face.jpg">
-        <article>
-        <p class="promo-avatar">Hey! My name is Conor Rogers and I'm a developer based in California. </p>
-    <p></p>
-        <hr class="grey">
-        <img src="img/book-open.svg">B.Sc. Computer Science, UC Santa Cruz, 2018<br>
-        <img src="img/coffee.svg">A.A. Mathematics, College of Marin, 2016<br>
-        <hr class="grey">
-        </article>
-        <section id="portfolio">
-            <article>
-                <div id="root"></div>
-                <p class="">Recently graduated from University of California, Santa Cruz I find myself extremely interested in complex computing problems and their solutions. Fast-paced environments, team-based work-flows, and new opportunities to grow as a developer are what I need to thrive. That's why I've developed myself into a well rounded junior developer with a knack for creative problem solving. </p>
-            </article>
-            <!--<article>-->
-                <!--<hr class="grey">-->
-            <!--</article>-->
+    </header>
+    <div id="section-web"></div>
+    <div id="pinContainer">
+        <!--<div id="nav_trigger"></div>-->
+        <section class="panel opening" id="section-web">
+            <div   class="hero">
+            <!--<b>what?</b>-->
+                <h1> Conor J. Rogers  </h1>
+                <h4 ><br><br><br> fullstack <br> developer</h4>
+            </div>
         </section>
-    </section>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/TweenMax.min.js"></script>
+        <section class="panel content" id="content">
+            <b></b>
+            <div class="additional_content">
 
+                <img id="avatar" src="img/face.jpg">
+                <article>
+                <p class="promo-avatar">Hey! My name is Conor Rogers and I'm a developer based in California. </p>
+                <p></p>
+                <hr class="grey">
+                <h4 id="degree_desc">
+                    <img id="cute_icon" src="img/book-open.svg">B.Sc. Computer Science, UC Santa Cruz, 2018<br>
+                    <img id="cute_icon" src="img/award.svg">A.A. Mathematics, College of Marin, 2016<br>
+                </h4>
+                <hr class="grey">
+                </article>
+                <section id="portfolio">
+                    <article>
+                        <div id="root"></div>
+                        <p class="">Recently graduated from University of California, Santa Cruz I find myself extremely interested in complex computing problems and their solutions. Fast-paced environments, team-based work-flows, and new opportunities to grow as a developer are what I need to thrive. That's why I've developed myself into a well rounded junior developer with a knack for creative problem solving. </p>
+
+                    </article>
+                <!--<article>-->
+                    <!--<hr class="grey">-->
+                <!--</article>-->
+                </section>
+            </div>
+
+        </section>
+        <section class="panel foot">
+
+        </section>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.14.2/TweenMax.min.js"></script>-->
+    <!--<script src="js/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js"></script>-->
+
+    <!--</div>-->
 
 </body>
 </html>

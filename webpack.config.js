@@ -2,13 +2,18 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
+
 var Path = require('path')
-
-
 module.exports = {
     resolve: {
         alias: {
+            "TweenLite": Path.resolve('node_modules', 'gsap/src/uncompressed/TweenLite.js'),
+            "TweenMax": Path.resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
+            "TimelineLite": Path.resolve('node_modules', 'gsap/src/uncompressed/TimelineLite.js'),
+            "TimelineMax": Path.resolve('node_modules', 'gsap/src/uncompressed/TimelineMax.js'),
+            "ScrollMagic": Path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
             "animation.gsap": Path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'),
+            "debug.addIndicators": Path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js')
         }
     },
     entry: './src/app.js',
