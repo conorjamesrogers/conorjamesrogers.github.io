@@ -206,6 +206,8 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #9baec8;
+
   //border-bottom: 1px #eaeaea solid;
   transition: all 0.5s ease;
   //position:absolute;
@@ -232,10 +234,18 @@ p {
 .header--links ul li {
   display: inline-flex;
   margin-right: 1em;
+  color: #9baec8;
+
+}
+.header--links ul li .rightmost{
+  //align-items: end;
+  //justify-content: end;
+  float: right;
+
 }
 .header--links ul li a {
   font-family: 'Cantarell', sans-serif;
-  margin-right: 2em;
+  margin-right: 3em;
   display: inline-block;
   cursor: pointer;
   transform: scale(1);

@@ -68,13 +68,15 @@ $(function(){
         var banner = $('#nav-container');
         new ScrollMagic.Scene({
             triggerElement: 'header',
-            triggerHook: 'onLeave',
-            duration:0,
-            offset: -150
+            // triggerHook: 'onLeave',
+            duration:0
+            // offset: -150
         })
-            .setPin('#nav-container')
-            .setClassToggle(banner[0], 'fixed')
-            .setTween(banner[0], 0.3, {top: 0, ease: Power2.EaseIn})
+            .setPin('#nav-container', {
+                pushFollowers: false
+            })
+            // .setClassToggle(banner[0], 'fixed')
+            // .setTween(banner[0], 0.3, {top: 0, ease: Power2.EaseIn})
             // .addIndicators()
             .addTo(controller);
 

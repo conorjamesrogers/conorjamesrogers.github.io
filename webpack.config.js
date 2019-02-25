@@ -44,7 +44,13 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
+            },
+            {
+                test: /\.(jpg|jpeg|gif|png|svg)$/,
+                exclude: /node_modules/,
+                loader:'file-loader?limit=1024&name=img/[name].[ext]'
             }
+
         ]
     },
     devServer: {
